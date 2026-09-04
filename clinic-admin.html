@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>طبيب كير | لوحة تحكم المشفى والأطباء</title>
+    <!-- مكتبة أيقونات FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="booking.css">
+</head>
+<body>
+
+    <!-- الهيدر الرئيسي -->
+    <header class="header">
+        <div class="logo">
+            <i class="fa-solid fa-hospital-user"></i>
+            <span>Tabeeb<span>Care Admin</span></span>
+        </div>
+        <a href="booking.html" class="user-badge" style="text-decoration: none;">
+            <i class="fa-solid fa-eye"></i> معاينة واجهة المريض
+        </a>
+    </header>
+
+    <main class="container" style="max-width: 900px;">
+
+        <!-- 1. كروت الإحصائيات السريعة -->
+        <section class="card" style="padding: 1.5rem; margin-bottom: 1.5rem;">
+            <h2><i class="fa-solid fa-chart-line"></i> إحصائيات المواعيد</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1rem;">
+                <div style="background: #e0f7fa; padding: 1rem; border-radius: 12px; text-align: center;">
+                    <i class="fa-solid fa-ticket" style="font-size: 1.8rem; color: #0083b0;"></i>
+                    <h3 id="totalCount" style="margin-top: 0.5rem; color: #0f172a;">0</h3>
+                    <p style="margin: 0; font-size: 0.85rem; color: #475569;">إجمالي الحجوزات</p>
+                </div>
+                <div style="background: #dcfce7; padding: 1rem; border-radius: 12px; text-align: center;">
+                    <i class="fa-solid fa-circle-check" style="font-size: 1.8rem; color: #16a34a;"></i>
+                    <h3 id="confirmedCount" style="margin-top: 0.5rem; color: #0f172a;">0</h3>
+                    <p style="margin: 0; font-size: 0.85rem; color: #475569;">المواعيد المؤكدة</p>
+                </div>
+                <div style="background: #fee2e2; padding: 1rem; border-radius: 12px; text-align: center;">
+                    <i class="fa-solid fa-circle-xmark" style="font-size: 1.8rem; color: #dc2626;"></i>
+                    <h3 id="cancelledCount" style="margin-top: 0.5rem; color: #0f172a;">0</h3>
+                    <p style="margin: 0; font-size: 0.85rem; color: #475569;">المواعيد الملغاة</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. جدول إدارة الحجوزات الواردة -->
+        <section class="card">
+            <h2><i class="fa-solid fa-list-check"></i> إدارة مواعيد المرضى</h2>
+            <p class="subtitle">عرض وتحديث حالات الحجوزات القادمة من المرضى</p>
+
+            <div style="overflow-x: auto;">
+                <table style="width: 100%; border-collapse: collapse; text-align: right; margin-top: 1rem;">
+                    <thead>
+                        <tr style="background-color: #f1f5f9; border-bottom: 2px solid #e2e8f0;">
+                            <th style="padding: 12px;">المشفى / المحافظة</th>
+                            <th style="padding: 12px;">القسم والطبيب</th>
+                            <th style="padding: 12px;">التاريخ والوقت</th>
+                            <th style="padding: 12px;">الحالة</th>
+                            <th style="padding: 12px;">الإجراء</th>
+                        </tr>
+                    </thead>
+                    <tbody id="adminAppointmentsTable">
+                        <!-- سيتم تعبئة أسطر الجدول تلقائياً بـ JS -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+    </main>
+
+    <script src="clinic-admin.js"></script>
+</body>
+</html>

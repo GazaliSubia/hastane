@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>طبيب كير | TabeebCare - نظام حجز المواعيد</title>
+    <!-- مكتبة أيقونات FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="booking.css">
+</head>
+<body>
+
+   <!-- الهيدر الرئيسي مع أزرار التنقل وتبديل الحساب -->
+<header class="header">
+    <div class="logo">
+        <i class="fa-solid fa-hospital-user"></i>
+        <span>Tabeeb<span>Care</span></span>
+    </div>
+
+    <div style="display: flex; align-items: center; gap: 10px;">
+        <!-- شارة اسم المريض وزر تسجيل الخروج -->
+        <div id="userInfoHeader" class="user-badge" style="display: none;">
+            <i class="fa-solid fa-circle-user"></i> 
+            <span id="headerPatientName"></span>
+            <button id="logoutBtn" style="background: none; border: none; color: #ef4444; cursor: pointer; margin-right: 8px; font-weight: bold;" title="تسجيل الخروج لتبديل المريض">
+                <i class="fa-solid fa-right-from-bracket"></i> خروج
+            </button>
+        </div>
+
+        <!-- رابط الانتقال المباشر لوحة المشفى -->
+        <a href="clinic-admin.html" class="user-badge" style="text-decoration: none; background: #0083b0; color: white;">
+            <i class="fa-solid fa-user-gear"></i> لوحة المشفى
+        </a>
+    </div>
+</header>
+
+    <main class="container">
+
+        <!-- 1. شاشة تسجيل الدخول / إنشاء الملف الطبي للمريض -->
+        <section id="authSection" class="card">
+            <div class="icon-header">
+                <i class="fa-solid fa-id-card-clip"></i>
+            </div>
+            <h2>إنشاء الملف الطبي للمريض</h2>
+            <p>يرجى إدخال بياناتك الشخصية للبدء بحجز Mواعيد المشافي</p>
+
+            <form id="authForm" class="form-grid">
+                <div class="input-group">
+                    <label><i class="fa-solid fa-user"></i> الاسم:</label>
+                    <input type="text" id="patientName" placeholder="مثال: خالد" required>
+                </div>
+                <div class="input-group">
+                    <label><i class="fa-solid fa-signature"></i> الكنية:</label>
+                    <input type="text" id="patientLastName" placeholder="مثال: العلي" required>
+                </div>
+                <div class="input-group">
+                    <label><i class="fa-solid fa-calendar-days"></i> تاريخ الميلاد:</label>
+                    <input type="date" id="patientBirth" required>
+                </div>
+                <div class="input-group">
+                    <label><i class="fa-solid fa-phone"></i> رقم الهاتف:</label>
+                    <input type="tel" id="patientPhone" placeholder="مثال: 0912345678" required>
+                </div>
+
+                <button type="submit" class="primary-btn full-width">
+                    <i class="fa-solid fa-arrow-left"></i> المتابعة لاختيار المشفى
+                </button>
+            </form>
+        </section>
+
+        <!-- 2. شاشة الحجز المتسلسل (المحافظة -> المشفى -> العيادة -> الطبيب) -->
+        <section id="bookingWizard" class="card" style="display: none;">
+            <h2><i class="fa-solid fa-calendar-plus"></i> حجز موعد جديد</h2>
+            <p class="subtitle">حدد المنطقة والعيادة لاختيار الطبيب المناسب</p>
+
+            <form id="bookingForm" class="form-grid">
+                <!-- اختيار المحافظة -->
+                <div class="input-group">
+                    <label><i class="fa-solid fa-location-dot"></i> المحافظة:</label>
+                    <select id="citySelect" required>
+                        <option value="">-- اختر المحافظة --</option>
+                        <option value="حماة">حماة</option>
+                        <option value="حلب">حلب</option>
+                        <option value="إدلب">إدلب</option>
+                        <option value="حمص">حمص</option>
+                        <option value="اللاذقية">اللاذقية</option>
+                        <option value="دمشق">دمشق</option>
+                    </select>
+                </div>
+
+                <!-- اختيار المشفى -->
+                <div class="input-group">
+                    <label><i class="fa-solid fa-hospital"></i> المشفى:</label>
+                    <select id="hospitalSelect" required disabled>
+                        <option value="">-- اختر المحافظة أولاً --</option>
+                    </select>
+                </div>
+
+                <!-- اختيار القسم / العيادة -->
+                <div class="input-group">
+                    <label><i class="fa-solid fa-stethoscope"></i> القسم / العيادة:</label>
+                    <select id="departmentSelect" required disabled>
+                        <option value="">-- اختر المشفى أولاً --</option>
+                    </select>
+                </div>
+
+                <!-- اختيار الطبيب -->
+                <div class="input-group">
+                    <label><i class="fa-solid fa-user-doctor"></i> الطبيب المختص:</label>
+                    <select id="doctorSelect" required disabled>
+                        <option value="">-- اختر القسم أولاً --</option>
+                    </select>
+                </div>
+
+                <!-- موعد وتاريخ الحجز -->
+                <div class="input-group">
+                    <label><i class="fa-solid fa-clock"></i> تاريخ ووقت الموعد:</label>
+                    <input type="datetime-local" id="appointmentTime" required>
+                </div>
+
+                <button type="submit" class="primary-btn full-width">
+                    <i class="fa-solid fa-ticket"></i> تأكيد قطع التذكرة
+                </button>
+            </form>
+        </section>
+
+        <!-- 3. لوحة المواعيد الحالية والقديمة للمريض -->
+        <section id="myAppointmentsSection" class="card" style="display: none; margin-top: 2rem;">
+            <div class="tabs-header">
+                <button class="tab-btn active" id="activeTabsBtn"><i class="fa-solid fa-clock-rotate-left"></i> المواعيد القادمة</button>
+                <button class="tab-btn" id="historyTabsBtn"><i class="fa-solid fa-box-archive"></i> السجل القديم</button>
+            </div>
+
+            <!-- قائمة المواعيد القادمة -->
+            <div id="activeAppointmentsList" class="appointments-grid">
+                <!-- سيتم توليد المواعيد ديناميكياً بـ JS -->
+            </div>
+
+            <!-- قائمة السجل القديم -->
+            <div id="historyAppointmentsList" class="appointments-grid" style="display: none;">
+                <!-- سيتم توليد المواعيد القديمة هنا -->
+            </div>
+        </section>
+
+    </main>
+
+    <script src="booking.js"></script>
+</body>
+</html>
